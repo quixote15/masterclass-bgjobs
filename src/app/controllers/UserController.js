@@ -1,4 +1,4 @@
-import Mail from '../lib/Mail'
+import Queue from '../lib/Queue'
 export default {
     async store(req, res) {
         console.log(req.body)
@@ -7,11 +7,9 @@ export default {
             name, email, password
         };
 
-        await Mail.sendMail({
-            from: 'QUEUE TEST <queue@queuetst.com.br>',
-            to: `${name} <${email}>`,
-            html: `Olá ${name}, Bem vindo arrombado!`
-        });
+        Queue.add({user});
+
+       // Adiciona job mail na fila
         return res.json(user);
     }
 }

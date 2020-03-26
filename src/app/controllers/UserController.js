@@ -7,7 +7,8 @@ export default {
             name, email, password
         };
 
-        Queue.add({user});
+        await Queue.add('RegistrationMail',{user});
+        await Queue.add('UserReport',{user});
 
        // Adiciona job mail na fila
         return res.json(user);
